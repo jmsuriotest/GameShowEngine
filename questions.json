@@ -1,0 +1,37 @@
+[
+  {
+    "guess": "guess/google..png",
+    "answerImage": "answer/google.png.png",
+    "answer": "Google"
+  },
+  {
+    "guess": "guess/apple.png",
+    "answerImage": "answer/apple.png",
+    "answer": "Apple"
+  },
+  {
+    "guess": "guess/mcdonalds.png",
+    "answerImage": "answer/mcdonalds.png",
+    "answer": "McDonald\'s"
+  },
+  {
+    "guess": "guess/nike.png",
+    "answerImage": "answer/nike.png",
+    "answer": "Nike"
+  },
+  {
+    "guess": "guess/adidas.jpg",
+    "answerImage": "answer/adidas.jpg",
+    "answer": "Adidas"
+  },
+  {
+    "guess": "guess/amazon.png",
+    "answerImage": "answer/amazon.png",
+    "answer": "Amazon"
+  },
+  {
+    "guess": "guess/facebook.webp",
+    "answerImage": "answer/facebook.webp",
+    "answer": "Facebook"
+  }
+]

@@ -1,39 +1,89 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><title>Guess The Logo</title><link rel='stylesheet' href='style.css'></head>
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>Guess The Logo</title><link rel='stylesheet' href='css/style.css'></head>
 <body>
-<div class="wrap"><h1>🎯 Guess the Logo</h1>
+<div class="wrap">
+	<header>
+
+		<h1>🎯 Guess The Logo</h1>
+		<div id="gameHeader">
+			<div class="status-row">
+				<span id="questionText"></span>
+				<span id="playerCount"></span>
+			</div>
+			<div class="bar">
+				<div class="fill" id="progressBar"></div>
+			</div>
+		</div>
+
+	</header>
 
 <div id=setup class=card>Players <input id=pcount type=number value=6>
 <button onclick="mk()">Create</button>
-<div id=plist></div><button onclick="start()">Start</button>
+<div id=plist></div><button onclick="startGame()">Start</button>
 </div>
 
-<div id='game'>
-	<div id=q></div><div class=bar><div class=fill id=fill></div></div><br>
-	<div id='container'>
-		<div id='gdiv'>
-			<div id='imgdiv1'><img id='g'></div>
-		</div>
-		<div id='gdiv'>
-			<div id='reveal' style='display:none'>
-				<div id='imgdiv'><img id='aimg'></div>
-				<h2 id='ans'></h2>
+<main id="game">
+
+	<div class="game-layout">
+
+		<section class="left-panel">
+            <div class="logo-stage">
+
+                <div class="card">
+
+                    <h2>Guess</h2>
+					<div class="image-container">
+						<img id="g">
+					</div>
+
+                </div>
+
+                <div class="card reveal-card hidden" id="reveal">
+
+                    <h2>Answer</h2>
+					<div class="image-container">
+						<img id="aimg">
+					</div>
+                    <h3 id="ans"></h3>
+
+                </div>
+
+            </div>
+		</section>
+
+		<aside class="right-panel">
+
+			<div class="panel-title">
+
+				🏆 Scoreboard
+
 			</div>
-		</div>
-		<div id='scorecard'><h2>Scores</h2><div id='scores'></div>
-</div>
-	</div>
-	</br>
-	<button onclick='prev()'>Prev</button><button onclick='reveal()'>Reveal</button><button onclick='next()'>Next</button>
-	
-	</div>
-	
-<script>
-function mk(){let s="";for(let i=0;i<pcount.value;i++)s+=`P${i+1}:<input id=n${i} value="Player ${i+1}"><br>`;plist.innerHTML=s;}mk();
 
-function start(){players=[];for(let i=0;i<pcount.value;i++)players.push({name:document.getElementById("n"+i).value,score:0});setup.style.display="none";game.style.display="block";render();draw();}
+			<div id="scores"></div>
 
-function mod(i,v){players[i].score+=v;draw()}
-function draw(){let h="<tr><th>Name</th><th>Score</th><th></th></tr>";players.forEach((p,i)=>h+=`<tr><td>${p.name}</td><td>${p.score}</td><td><button onclick="mod(${i},1)">+1</button><button onclick="mod(${i},5)">+5</button><button onclick="mod(${i},-1)">-1</button><button onclick="mod(${i},-5)">-5</button></td></tr>`);score.innerHTML=h;}</script>
-</script>
-<script src='script.js'></script>
+		</aside>
+	</div>
+
+	<div class="button-bar">
+		<button onclick="previousQuestion()">
+			◀ Previous
+		</button>
+		<button onclick="revealAnswer()">
+			👁 Reveal
+		</button>
+		<button onclick="nextQuestion()">
+			Next ▶
+		</button>
+		<button id="fullscreenBtn">
+			⛶ Fullscreen
+		</button>
+	</div>
+</main>
+
+
+<script src="js/questions.js"></script>
+<script src="js/state.js"></script>
+<script src="js/scoreboard.js"></script>
+<script src="js/game.js"></script>
+<script src="js/script.js"></script>
+
 </body></html>

@@ -16,12 +16,19 @@ function startGame(){
 }
 
 function nextQuestion() {
-    if (gameState.currentQuestion < gameState.order.length - 1) {
-        gameState.currentQuestion++;
-        render();
-    } else {
-        showGameOver();
+    if(gameState.currentQuestion>=gameState.order.length-1){
+        showWinnerScreen();
+        return;
     }
+    gameState.currentQuestion++
+    render();
+//    if (gameState.currentQuestion < gameState.order.length - 1) {
+//        gameState.currentQuestion++;
+//        render();
+//    } else {
+//        showWinnerScreen();
+//        return;
+//    }
 }
 
 function previousQuestion(){
@@ -93,47 +100,6 @@ function render(){
                 }/${gameState.questions.length}`;
 
     ui.progressBar.style.width = ((gameState.currentQuestion + 1) / gameState.questions.length * 100) + "%";
-
-}
-
-function showGameOver() {
-
-    // Highest score first
-    const ranking = [...gameState.players].sort((a, b) => b.score - a.score);
-    const top3 = ranking.slice(0, 3);
-    let html = `
-        <div class="winner-screen">
-            <h1>🏆 GAME OVER 🏆</h1>
-            <h2>Top Players</h2>
-            <div class="podium">
-                <div class="place second">
-                    🥈
-                    <h3>${top3[1] ? top3[1].name : "-"}</h3>
-                    <p>${top3[1] ? top3[1].score : 0} pts</p>
-                </div>
-
-                <div class="place first">
-                    🥇
-                    <h2>${top3[0] ? top3[0].name : "-"}</h2>
-                    <h3>${top3[0] ? top3[0].score : 0} pts</h3>
-                </div>
-
-                <div class="place third">
-                    🥉
-                    <h3>${top3[2] ? top3[2].name : "-"}</h3>
-                    <p>${top3[2] ? top3[2].score : 0} pts</p>
-                </div>
-
-            </div>
-
-            <button onclick="location.reload()">
-                Play Again
-            </button>
-
-        </div>
-    `;
-
-    document.body.innerHTML = html;
 
 }
 

@@ -20,23 +20,16 @@ const ui = {
     playerList: document.getElementById("plist"),
     gameHeader: document.getElementById("gameHeader"),
     playerCount: document.getElementById("pcount"),
-
     setupScreen: document.getElementById("setup"),
-
     gameScreen: document.getElementById("game"),
-
     questionNumber: document.getElementById("questionText"),
-
     progressBar: document.getElementById("progressBar"),
-
     guessImage: document.getElementById("g"),
-
     answerImage: document.getElementById("aimg"),
-
     answerText: document.getElementById("ans"),
-
     revealPanel: document.getElementById("reveal"),
-
-    scoreContainer: document.getElementById("scores")
+    scoreContainer: document.getElementById("scores"),
+    winnerScreen: document.getElementById("winnerScreen"),
+    podium: document.getElementById("podium")
 
 };

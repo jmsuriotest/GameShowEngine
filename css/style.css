@@ -10,6 +10,14 @@
     --radius:14px;
 }
 
+#winnerScreen{
+    position:fixed;
+    inset:0;
+    background:#061421EE;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
 body{
     font-family:Arial;
     background:var(--bg);
@@ -296,4 +304,11 @@ button{
         drop-shadow(0 0 3px rgba(0,0,0,.55))
         drop-shadow(0 3px 6px rgba(0,0,0,.2));
 
+}
+.winner-container{
+    width:900px;
+    max-width:90%;
+    background:var(--panel);
+    border-radius:20px;
+    padding:40px;
 }

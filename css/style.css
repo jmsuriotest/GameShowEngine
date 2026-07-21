@@ -1,0 +1,299 @@
+:root{
+    --bg:#07131F;
+    --panel:#102538;
+    --panelLight:#17344C;
+    --gold:#FFD54F;
+    --cyan:#40C4FF;
+    --green:#00E676;
+    --danger:#FF5252;
+    --text:#FFFFFF;
+    --radius:14px;
+}
+
+body{
+    font-family:Arial;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
+    text-align:center
+}
+img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    max-height:400px;
+    margin:10px;
+}
+.game-layout{
+    display:grid;
+    grid-template-columns:3fr 1fr;
+    gap:20px;
+    align-items:start;
+}
+.left-panel{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+.right-panel{
+    background:var(--panel);
+    padding:20px;
+    border-radius:var(--radius);
+    position:sticky;
+    top:20px;
+}
+.card{
+    background:var(--panel);
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+    display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 500px; /* or whatever height you chose */
+
+}
+button{
+    background:var(--gold);
+    color:#222;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.25s;
+    font-weight:bold;
+}
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 18px rgba(255,213,79,.6);
+}
+.bar{
+    height:12px;
+    background:#23384B;
+    border-radius:20px;
+    overflow:hidden;
+}
+.fill{
+    width:0;
+    height:100%;
+    background:linear-gradient(90deg,#40C4FF,#00E676);
+    transition:width .4s ease;
+}
+.image-panel{
+    height:420px;
+}
+.player-row.leader{
+    border:2px solid var(--gold);
+    box-shadow:0 0 15px rgba(255,213,79,.5);
+    background:#1d3557;
+}
+.player-row{
+    display:grid;
+    grid-template-columns:1fr 60px auto;
+    align-items:center;
+    gap:10px;
+    padding:8px 12px;
+    margin-bottom:8px;
+    border-radius:10px;
+    background:var(--panelLight);
+}
+.player-name{
+    font-weight:bold;
+    font-size:16px;
+}
+.player-score{
+    font-size:22px;
+    text-align:center;
+    color:var(--gold);
+}
+.player-buttons{
+    display:flex;
+    gap:6px;
+}
+.fade{
+    animation:fade .5s;
+}
+.hidden{
+    display:none;
+}
+.logo-stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.logo-stage .card {
+    height: 480px;          /* Same height for every card */
+    max-height: 480px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 14px;
+}
+.logo-stage img{
+    width:100%;
+    max-height:300px;
+    object-fit:contain;
+}
+.reveal-card {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: opacity .3s ease;
+
+}
+.reveal-card.show {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+.bar {
+    width: 100%;
+    height: 12px;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0 20px;
+}
+
+.fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00bfff, #00ff99);
+    transition: width 0.4s ease;
+}
+.button-bar{
+    margin-top: 15px;
+    margin-bottom: 15px;
+ }
+button{
+    margin:5px;
+    padding:8px;
+}
+#gdiv{
+    width:50%;
+    height:100%;
+    background:#595959;
+}
+#imgdiv{
+    height:430px;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    background: #fff;
+}
+#imgdiv1{
+    height:100%;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    background: #fff;
+}
+#container{
+    width:100%;
+    height:500px;
+    display: flex;
+    gap: 16px;
+}
+#game{
+    display: none
+}
+#scorecard{
+    display: block;
+    width:25%
+}
+.bar{
+    height:18px;
+    background:#444;
+    border-radius:9px;
+    overflow:hidden
+}
+.fill{
+    height:100%;
+    background:#4caf50;
+    width:0
+}
+.winner-screen{
+    text-align:center;
+    padding:50px;
+    animation:fadeIn .7s;
+}
+.podium{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:30px;
+    margin:40px 0;
+}
+.place{
+    background:#222;
+    border-radius:15px;
+    padding:20px;
+    width:180px;
+}
+.first{
+    background:#f9c74f;
+    color:#000;
+    transform:scale(1.15);
+}
+.second{
+    background:#c0c0c0;
+    color:#000;
+}
+.third{
+    background:#cd7f32;
+}
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+#gameHeader {
+    display: none;
+}
+.image-container {
+    flex: 1;
+    min-height: 0; /* Important! */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+
+    /* Your checkerboard background */
+    background-color: #e8e8e8;
+    background-image:
+        linear-gradient(45deg, #f3f3f3 25%, transparent 25%),
+        linear-gradient(-45deg, #f3f3f3 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f3f3f3 75%),
+        linear-gradient(-45deg, transparent 75%, #f3f3f3 75%);
+    background-size: 24px 24px;
+    background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+}
+.image-container img {
+
+        max-width: 100%;
+        max-height: 100%;
+
+        width: auto;
+        height: auto;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 2px rgba(255,255,255,.9))
+        drop-shadow(0 0 3px rgba(0,0,0,.55))
+        drop-shadow(0 3px 6px rgba(0,0,0,.2));
+
+}

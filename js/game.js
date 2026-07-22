@@ -109,14 +109,14 @@ function render(){
     ui.revealPanel.classList.add("hidden");
     const question = getCurrentQuestion();
 
-    changeImage(ui.guessImage,question.guess);
+    changeImage(ui.guessImage, PackManager.currentPack.imageFolder + question.guess);
 
     // Clear answer while hidden
     ui.answerImage.src = "";
     ui.answerText.textContent = "";
 
     // Store the real answer for later
-    ui.answerImage.dataset.nextSrc = question.answerImage;
+    ui.answerImage.dataset.nextSrc =  PackManager.currentPack.imageFolder + question.answerImage;
     ui.answerText.dataset.nextAnswer = question.answer;
     if (gameState.currentQuestion === 0) {
         ui.prevBtn.disabled = true;

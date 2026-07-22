@@ -67,6 +67,7 @@ const ui = {
     packVersion: document.getElementById("packVersion"),
     packQuestions: document.getElementById("packQuestions"),
     packAuthor: document.getElementById("packAuthor"),
+    startGameBtn: document.getElementById("startGameBtn"),
     settings : {
         modal: document.getElementById("settingsModal"),
         saveBtn: document.getElementById("saveSettingsBtn"),

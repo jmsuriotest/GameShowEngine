@@ -1,8 +1,5 @@
-function showWinnerScreen() {
-    ui.winnerScreen.classList.remove("hidden");
-    ui.winnerScreen.style.display = "flex";
-    // Highest score first
-    const ranking = [...gameState.players].sort((a, b) => b.score - a.score);
+function createPodium(){
+const ranking = [...gameState.players].sort((a, b) => b.score - a.score);
     const top3 = ranking.slice(0, 3);
     let html = `
                 <div class="place second">
@@ -25,5 +22,25 @@ function showWinnerScreen() {
     `;
 
     ui.podium.innerHTML = html;
-
+}
+function animatePodium(){
+    const cards = document.querySelectorAll(".place");
+    cards.forEach((card,index)=>{
+        setTimeout(()=>{
+            card.classList.add("show");
+        },index*250);
+    });
+}
+function showWinnerScreen(){
+    ui.gameOverOverlay.classList.remove("hidden");
+    winnerTitle.textContent =
+    `🏆 ${PackManager.currentPack.title} Complete!`;
+    setTimeout(()=>{
+        createPodium();
+        ui.gameOverOverlay.classList.add("hidden");
+        ui.winnerScreen.classList.remove("hidden");
+           animatePodium();
+           Confetti.start();
+        Sound.play("winner");
+    },CONFIG.GAME_OVER_DELAY);
 }

@@ -11,15 +11,26 @@ const Sound = {
         score: new Audio("assets/sounds/score.mp3")
     },
     play(name) {
-        if (!this.enabled) return;
+
+        // Global sound system disabled
+        if (!this.enabled)
+            return;
+
+        // Game settings muted
+        if (!gameState.settings.soundEnabled)
+            return;
+
         const sound = this.sounds[name];
+
         if (!sound) {
             console.warn("Missing sound:", name);
             return;
         }
+
         sound.pause();
         sound.currentTime = 0;
         sound.play();
+
     },
     stop(name) {
         const sound = this.sounds[name];

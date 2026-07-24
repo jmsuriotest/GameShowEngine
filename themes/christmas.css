@@ -1,0 +1,10 @@
+.theme-christmas{
+    --bg-main:#10281B;
+    --bg-panel:#173F2A;
+    --bg-panel-light:#1E5A3B;
+    --accent:#FFD54F;
+    --accent-hover:#FFE082;
+    --success:#C62828;
+    --text:#FFFFFF;
+    --text-muted:#E8F5E9;
+}

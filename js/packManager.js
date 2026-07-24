@@ -2,12 +2,7 @@ const PackManager = {
     currentPack: null,
     packs: {}
 };
-PackManager.load = function(pack){
-    this.currentPack = pack;
-    gameState.questions = [...pack.questions];
-     // Update browser title
-    document.title = pack.title;
-}
+
 PackManager.register = function(pack){
     this.packs[pack.id] = pack;
     console.log(`Pack registered: ${pack.title}`);
@@ -22,6 +17,7 @@ PackManager.load = function(pack){
     }
     this.currentPack = pack;
     gameState.questions = [...pack.questions];
+    document.title = pack.title;
     return true;
 }
 
@@ -34,10 +30,6 @@ PackManager.populateSelect = function(){
         `${pack.title} (${pack.questions.length})`;
         ui.packSelect.appendChild(option);
     });
-    if(ui.packSelect.options.length){
-        ui.packSelect.selectedIndex = 0;
-        this.updateInfo();
-    }
 }
 PackManager.updateInfo = function(){
     const pack =
@@ -60,6 +52,10 @@ PackManager.updateInfo = function(){
     } else {
         ui.startGameBtn.disabled = true;
     }
+    Storage.set("pack", pack.id);
+    console.log(Storage.get("pack"));
+    console.log(ui.packSelect.value);
+    console.log(PackManager.currentPack?.id);
 }
 PackManager.getAll = function(){
     return Object.values(this.packs);
@@ -75,3 +71,15 @@ PackManager.validate = function(pack){
         return false;
     return true;
 }
+PackManager.loadSaved = function () {
+    const saved = Storage.get("pack");
+    if (!saved)
+        return false;
+    const pack = this.get(saved);
+    if (!pack)
+        return false;
+    ui.packSelect.value = saved;
+    this.load(pack);          // VERY IMPORTANT
+    this.updateInfo();
+    return true;
+};

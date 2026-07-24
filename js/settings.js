@@ -31,6 +31,13 @@ function saveSettings() {
         Number(ui.settings.pointsPerCorrect.value);
     gameState.settings.soundEnabled =
         ui.settings.soundEnabled.checked;
+    Storage.set(
+            "sound",
+            gameState.settings.soundEnabled);
+    ui.muteBtn.textContent =
+        gameState.settings.soundEnabled
+            ? "🔊 Sound"
+            : "🔇 Muted";
     applySettings();
     closeSettings();
 }
@@ -67,4 +74,17 @@ function refreshUI() {
     drawScore();
     render();
     updateProgressVisibility();
+}
+function resetPreferences() {
+    Storage.remove("theme");
+    Storage.remove("pack");
+    location.reload();
+}
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
 }

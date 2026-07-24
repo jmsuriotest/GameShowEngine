@@ -1,0 +1,9 @@
+.theme-halloween{
+    --bg-main:#140B1D;
+    --bg-panel:#261537;
+    --bg-panel-light:#35204D;
+    --accent:#FF9800;
+    --accent-hover:#FFB74D;
+    --text:#FFFFFF;
+    --text-muted:#D1C4E9;
+}

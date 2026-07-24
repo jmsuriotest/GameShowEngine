@@ -18,14 +18,26 @@ function startGame(){
     ui.setupScreen.style.display="none";
     ui.gameScreen.style.display="block";
     ui.gameHeader.style.display = "block";
-    ui.playerCountLabel.textContent =
-        `Players: ${gameState.players.length}`;
+    ui.revealBtn.disabled = false;
+    ui.prevBtn.disabled = true;
+    ui.nextBtn.disabled = false;
     render();
     applySettings();
+    updateQuickControls();
     document.getElementById("gameTitle").textContent =
     PackManager.currentPack.title;
+    gameState.startTime = Date.now();
+    gameState.pausedDuration = 0;
+    gameState.pauseStarted = null;
+    gameState.paused = false;
+    setInterval(updateDashboard,1000);
 }
 function nextQuestion() {
+    if(gameState.paused){
+        Sound.play("error");
+        return;
+    }
+    gameState.revealed = false;
     if(gameState.currentQuestion>=gameState.order.length-1){
         ui.nextBtn.disabled = true;
         Sound.play("gameover");
@@ -33,6 +45,7 @@ function nextQuestion() {
         return;
     }
     gameState.currentQuestion++
+    Sound.play("click");
     if (gameState.settings.revealAnimation) {
         ui.revealPanel.classList.remove("show");
         setTimeout(() => {
@@ -54,14 +67,25 @@ function nextQuestion() {
 }
 
 function previousQuestion(){
+    if(gameState.paused){
+        Sound.play("error");
+        return;
+    }
     Sound.play("click")
-     if(gameState.currentQuestion>0){
-     gameState.currentQuestion--;render();
-     }
+    if(gameState.currentQuestion>0){
+        gameState.currentQuestion--;
+        render();
+        ui.revealBtn.disabled = false;
+    }
  }
 
 function revealAnswer(){
+    if(gameState.paused){
+        Sound.play("error");
+        return;
+    }
     Sound.play("reveal");
+    gameState.revealed = true;
     ui.revealBtn.disabled = true;
     changeImage(ui.answerImage,ui.answerImage.dataset.nextSrc);
     ui.answerText.textContent = ui.answerText.dataset.nextAnswer;
@@ -120,12 +144,9 @@ function render(){
     ui.answerText.dataset.nextAnswer = question.answer;
     if (gameState.currentQuestion === 0) {
         ui.prevBtn.disabled = true;
+    } else {
+        ui.prevBtn.disabled = false;
     }
-
-    ui.questionNumber.textContent =
-                `Question ${
-                    gameState.currentQuestion + 1
-                }/${gameState.questions.length}`;
     drawProgressBar();
 }
 
@@ -154,4 +175,88 @@ function initializeGame() {
     } else {
         gameState.order = [...gameState.questions.keys()];
     }
+}
+function togglePause(){
+    gameState.paused = !gameState.paused;
+    if(gameState.paused){
+        gameState.pauseStarted = Date.now();
+        ui.pauseBtn.classList.add("active");
+    }
+    else{
+        gameState.pausedDuration += Date.now() - gameState.pauseStarted;
+        gameState.pauseStarted = null;
+        ui.pauseBtn.classList.remove("active");
+    }
+    ui.pauseBtn.textContent =
+    gameState.paused ? "▶ Resume" : "⏸ Pause";
+    updateDashboard();
+}
+function toggleMute(){
+    gameState.settings.soundEnabled =
+        !gameState.settings.soundEnabled;
+    ui.muteBtn.textContent =
+        gameState.settings.soundEnabled
+            ? "🔊 Sound"
+            : "🔇 Muted";
+    updateDashboard();
+    console.log("Sound Enabled:", gameState.settings.soundEnabled);
+    Storage.set(
+        "sound",
+        gameState.settings.soundEnabled
+    );
+}
+function shuffleRemainingQuestions() {
+    const played =
+        gameState.order.slice(
+            0,
+            gameState.currentQuestion + 1
+        );
+    const remaining =
+        [...gameState.order.slice(
+            gameState.currentQuestion + 1
+        )];
+    shuffle(remaining);
+    gameState.order = [
+        ...played,
+        ...remaining
+    ];
+    updateDashboard();
+    Sound.play("click");
+
+}
+function randomQuestion(){
+    const remaining =
+        gameState.order.slice(
+            gameState.currentQuestion+1
+        );
+    if(!remaining.length)
+        return;
+    const next =
+        remaining[
+            Math.floor(
+                Math.random()*remaining.length
+            )
+        ];
+    gameState.currentQuestion =
+        gameState.order.indexOf(next);
+    render();
+}
+function updateQuickControls(){
+    const disabled =
+        ui.setupScreen.style.display !== "none";
+    [
+        ui.pauseBtn,
+        ui.shuffleBtn,
+        ui.skipBtn,
+        ui.randomBtn
+    ].forEach(btn=>{
+        btn.disabled = disabled;
+    });
+}
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }

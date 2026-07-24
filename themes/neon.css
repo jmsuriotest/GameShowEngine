@@ -1,0 +1,11 @@
+.theme-neon{
+    --bg-main:#050816;
+    --bg-panel:#111827;
+    --bg-panel-light:#1E293B;
+    --accent:#00E5FF;
+    --accent-hover:#4DFFFF;
+    --text:#E0FFFF;
+    --text-muted:#9BE7FF;
+    --border:rgba(0,229,255,.25);
+    --shadow-medium:0 0 25px rgba(0,229,255,.25);
+}
